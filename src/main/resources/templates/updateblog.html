@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/editormd/css/editormd.css}"/>
+    <link rel="stylesheet" th:href="@{/editormd/css/editormd.css}"/>
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/js/pintuer.js}"></script>
+    <script th:src="@{admin/js/laydate/laydate.js}"></script>
+    <link rel="stylesheet" th:href="@{/editormd/css/editormd.css}"/>
+    <script th:src="@{/editormd/myjquery.min.js}"></script>
+    <script th:src="@{/editormd/editormd.min.js}"></script>
+    <script th:src="@{/editormd/uploadImg.js}" type="text/javascript"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>更新内容</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" th:action="@{/blog/saveupdateblog}" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="label">
+                    <label>标题：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="" name="title" th:value="${title}" data-validate="required:请输入标题"/>
+                    <div class="tips"></div>
+                    <input type="hidden" th:value="${title}" name="oldtitle">
+                </div>
+            </div>
+
+
+
+                <div class="form-group" >
+                    <div class="label">
+                        <label>文章来源：</label>
+                    </div>
+                    <div class="field">
+                        <select name="sourceId" id="sourceId" class="input w50">
+                            <option value="">请选择</option>
+                            <option th:each="source:${sourcelist}"
+
+                                    th:value="${source.id}"
+
+                                    th:text="${source.name}">
+
+                            </option>
+
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+
+
+                </div>
+
+
+            <div class="form-group" >
+                <div class="label">
+                    <label>关键字：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="laydate-icon input w50" placeholder="请以“,” 分隔" name="keywords"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>发布形式：</label>
+                </div>
+                <div class="field" style="padding-top:8px;">
+                    <input  th:each="pubtype:${pubtypeList}" th:value="${pubtype.id}" type="radio" th:text="${pubtype.name}"  name="pubtype"/>
+
+                </div>
+            </div>
+
+                <div class="form-group" >
+                    <div class="label">
+                        <label>属性：</label>
+                    </div>
+                    <div class="field" style="padding-top:8px;">
+                        置顶 <input value="0" type="radio" checked="checked" name="radio"/>
+                        推荐 <input value="1" type="radio" name="radio"/>
+
+                    </div>
+                </div>
+
+            <div class="form-group" >
+                <div class="label">
+                    <label>文章标签：</label>
+                </div>
+                <div class="field" style="padding-top:8px;">
+                  <input  name="labels" th:each="category:${categoryList}" type="checkbox" th:value="${category.name}"
+                           th:text="${category.name}">
+
+                 </div>
+                </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>博客内容：</label>
+                </div>
+                <div class="field">
+                    <div id="test-editor">
+                        <textarea id="textareavalue" style="display: none" name="textarea" th:text="${content}" >
+
+                        </textarea>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!--集成markdown--->
+            <script type="text/javascript">
+                $(function () {
+                    var editor = editormd("test-editor", {
+                        width: "100%",
+                        height: "900px",
+                        path: "/editormd/lib/",
+                        syncScrolling : "single",
+                        autoFocus:false,  //页面打开时不自动获取焦点
+                        autoLoadModules: true,
+                        saveHTMLToTextarea : true,// 保存 HTML 到 Textarea，true表示转化为html格式的内容也同样提交到后台
+                        toolbarAutoFixed:true,//工具栏自动固定定位的开启与禁用
+                        imageUpload : true,
+                        codeFold : true, //支持代码折叠
+                        tocDropdown   : true, //生成下拉目录
+                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL: "/blog/updateUploadImage",
+                        onload : function() {
+                            initPasteDragImg(this); //图片剪切上传
+
+                        }
+                    });
+                });
+            </script>
+            <div class="clear"></div>
+            <div class="form-group">
+                <div class="label">
+                    <label>等级：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="laydate-icon input w50" name="level" th:value="${level}"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>发布时间：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="laydate-icon input w50" name="time" th:value="${time}"
+                           data-validate="required:日期不能为空"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 更新博客</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

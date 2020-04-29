@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 修改用户信息</strong></div>
+    <div class="body-content">
+
+        <form method="post" class="form-x" th:action="@{/user/uploaduser}">
+            <span th:text="${msg}"> </span>
+            <input type="hidden" th:value="${user.id}" name="id">
+
+            <div class="form-group">
+                <div class="label">
+                    <label>用户名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="name" size="50" th:value="${user.name}"
+                           placeholder="请输入新用户名"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>密码：</label>
+                </div>
+                <div class="field">
+                    <input type="password" class="input w50" name="password" size="50" th:value="${user.password}"
+                           placeholder="请输入新密码"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="label">
+                    <label>登录名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="loginName" size="50" th:value="${user.loginName}"
+                           placeholder="请输入新登录名"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>电话：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="tel" size="50" th:value="${user.tel}"
+                           placeholder="请输入新电话"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>性别：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="gender" size="50"
+                           th:value="${user.gender==1?'男':'女'}" placeholder=" 请输入性别" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>年龄：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="age" size="50"
+                           th:value="${user.age}" placeholder=" 请输入年龄" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>生日：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="birth" size="50"
+                           th:value="${#dates.format(user.birth, 'yyyy-MM-dd HH:mm:ss')}" placeholder="请输入生日"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>家庭地址：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="townId" size="50" th:value="${getaddress}"
+                           placeholder="请输入新地址"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>邮箱：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="email" size="50" th:value="${user.email}"
+                           placeholder="请输入新邮箱"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label>个人简介：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="intro" size="50" th:value="${user.intro}"
+                           placeholder="请输入个人简介"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>用户角色：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="role" size="50" th:value="${user.role}"
+                           placeholder="请输入新用户角色"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nprogress.css}">
+    <link rel="stylesheet" href="/css/t1.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="apple-touch-icon-precomposed" th:href="@{/images/icon.png}">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <title>博客</title>
+
+    <script src="/js/t1.js"></script>
+    <script src="/js/t2.js"></script>
+    <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{/js/nprogress.js}"></script>
+    <script th:src="@{/js/jquery.lazyload.min.js}"></script>
+    <script th:src="@{/js/jquery.ias.js}"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+
+
+    <style type="text/css">
+        .clearfix:after {
+            display: block;
+            clear: both;
+            content: "";
+            visibility: hidden;
+            height: 0
+        }
+
+        .tags {
+            height: 25px;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-left: 15px;
+            width: auto;
+        }
+
+        .yuan {
+            margin-top: 10px;
+            margin-left: 15px;
+        }
+
+        .li {
+            float: left;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+<body class="user-select">
+<header class="header">
+    <nav class="navbar navbar-default" id="navbar">
+        <div class="container">
+            <div class="header-topbar hidden-xs link-border">
+                <ul class="site-nav topmenu">
+                    <li>
+                        <a th:href="@{/user/toadmin}" th:text="${name}" style="color:red; font-family: Consolas;font-size: 16px;"></a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/user/pages/(page='login')}">
+                            登录
+                        </a></li>
+                </ul>
+                勤记录 懂分享
+
+            </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#header-navbar" aria-expanded="false"><span class="sr-only"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+                <h1 class="logo hvr-bounce-in"><a th:href="@{/getCategory}" title="木庄网络博客"><img
+                        th:src="@{/images/201610171329086541.png}"
+                        alt="木庄网络博客"></a></h1>
+            </div>
+            <div class="collapse navbar-collapse" id="header-navbar">
+                <form class="navbar-form visible-xs" action="/Search" method="post">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20"
+                               autocomplete="off">
+                        <span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span></div>
+
+                </form>
+                <ul class="nav navbar-nav navbar-left clearfix" th:each="category:${categories}">
+                    <li style="float: left"><a th:href="@{/searchBlog(keywords=${category.name})}" data-cont="木庄网络博客" title="木庄网络博客" th:text="${category.name}"></a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <div id="focusslide" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#focusslide" data-slide-to="0" class="active"></li>
+                    <li data-target="#focusslide" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <a href="#" target="_blank" title="木庄网络博客源码">
+                            <img th:src="@{/images/201610241227558789.jpg}" alt="木庄网络博客源码" class="img-responsive"></a>
+                    </div>
+                    <div class="item">
+                        <a href="#" target="_blank" title="专业网站建设">
+                            <img th:src="@{/images/201610241227558789.jpg}" alt="专业网站建设" class="img-responsive"></a>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#focusslide" role="button" data-slide="prev" rel="nofollow">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span
+                        class="sr-only">上一个</span> </a> <a class="right carousel-control" href="#focusslide"
+                                                           role="button" data-slide="next" rel="nofollow"> <span
+                    class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
+                    class="sr-only">下一个</span> </a></div>
+            <article class="excerpt-minic excerpt-minic-index">
+                <h2><span class="red">【推荐】</span></h2>
+
+                <article class="excerpt excerpt-1" style="" th:each="blogtuijian:${tuijianlist}"
+                         th:if="${blogtuijian.tuijian} eq 1">
+                    <a class="focus" th:href="@{/getDetailed(blogId=${blogtuijian.id})}" target="_blank"><img
+                            class="thumb"
+
+                            th:src="@{/images/yuan.jpg}"
+                            alt="博客上传的图片"
+                            style="display: inline;"></a>
+                    <header>
+                        <h2><a th:href="@{/getDetailed(blogId=${blogtuijian.id})}" target="_blank"
+                               th:text="${blogtuijian.title}"></a>
+                        </h2>
+                    </header>
+                    <!--class="note"-->
+                    <p class="note" th:text="${blogtuijian.intro}" style="font-family: Consolas"></p>
+                    <!--class="meta"-->
+                    <div class="meta">
+                        <a class="time"><i class="glyphicon glyphicon-time"></i><span
+                                th:text="${#dates.format(blogtuijian.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span></a>
+                        <a class="views"><i>👁</i> 216</a>
+                        <a th:href="@{/addagree(blogId=${blogtuijian.id})}" title="点赞" style="margin-left: 15px;"
+                           target="_blank"><span>👍</span>
+                            <span>[[${blogtuijian.agree}]]</span>
+                        </a>
+
+                        <a class="comment" th:href="@{/getConment(blogId=${blogtuijian.id})}" title="评论"
+                           style="margin-left: 15px;" target="_blank"><span>✉</span>
+                            <span>[[${blogtuijian.comment}]]</span></a>
+                    </div>
+                    <div>
+                        <span class="label label-info "> 关键字：[[${blogtuijian.keywords}]]</span>
+                        <a class="label label-info " th:href="@{/getBookBlogId(blogId=${blogtuijian.id})}">留言</a>
+                    </div>
+
+                </article>
+
+
+            </article>
+            <div class="title">
+                <h3>已发博客</h3>
+            </div>
+            <article class="excerpt excerpt-1" style="" th:each="record:${records}">
+                <a class="focus" th:href="@{/getDetailed(blogId=${record.id})}" target="_blank"><img class="thumb"
+
+                                                                                                     th:src="@{/images/yuan.jpg}"
+                                                                                                     alt="博客上传的图片"
+                                                                                                     style="display: inline;"></a>
+                <header>
+
+                    <h2><a th:href="@{/getDetailed(blogId=${record.id})}" target="_blank" th:text="${record.title}"></a>
+                    </h2>
+                </header>
+
+                <p class="note" th:text="${record.intro}" style="font-family: Consolas"></p>
+                <div class="meta">
+                    <span class="time"><i class="glyphicon glyphicon-time"></i><span
+                            th:text="${#dates.format(record.createTime, 'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                    <span style="font-size: 12px"> 👁</span>
+                    <a th:href="@{/addagree(blogId=${record.id})}" class="hit" th:title="${record.agree}"
+                       style="margin-left: 15px;">
+                        <span>👍</span><span>[[${record.agree}]]</span></a>
+                    <a class="comment button-small" th:href="@{/getConment(blogId=${record.id})}"
+                       th:title="${record.comment}" target="_blank" style="margin-left: 15px;">
+                        <span>✉</span><span style="margin-left: 5px">[[${record.comment}]]</span></a>
+
+                </div>
+                <div>
+
+                    <span class="label label-info "> 关键字：[[${record.keywords}]]</span>
+                    <a class="label label-info " th:href="@{/getBookBlogId(blogId=${record.id})}"><span>留言</span></a>
+
+                </div>
+            </article>
+
+
+            <nav class="pagination" style="display:block;">
+                <ul>
+                    <li><a th:href="@{/showblog/(current=1,size=5)}">首页</a></li>
+                    <li><a th:href="@{/showblog/(current=${pre},size=5)}" th:if="${current} ne 1">上一页</a></li>
+
+                    <li th:each="pageNum:${pagenum}">
+                        <a th:href="@{/showblog/(current=${pageNum},size=5)} " th:text="${pageNum}"
+                           th:if="${pageNum} lt ${pages}"></a>
+
+                    </li>
+                    <li><a th:href="@{/showblog/(current=${next},size=5)}" th:if="${current} ne ${pages}">下一页</a></li>
+                    <li><a th:href="@{/showblog/(current=${pages},size=5)}">尾页</a></li>
+                    <li><a>共有[[${pages}]]页</a></li>
+                    <li><a>共有[[${total}]]记录</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <aside class="sidebar">
+        <div class="fixed">
+            <div class="widget widget-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab"
+                                                              data-toggle="tab">信息</a></li>
+                    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab"
+                                               data-toggle="tab">其他信息</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane contact active" id="notice">
+                        <h4>博客总数:
+                            <span style="color: red">[[${total}]]篇</span>
+
+                        </h4>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane contact" id="contact">
+                        <h4>此功能没定义</h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="widget widget_search">
+                <form class="navbar-form" th:action="@{/searchBlog}" method="post">
+                    <div class="input-group">
+                        <input type="text" name="keywords" class="form-control" size="50" placeholder="请输入关键字并以','结束"
+                               maxlength="50" autocomplete="off">
+                        <span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="widget widget_sentence">
+            <div>
+                <h3 style="color: blue; font-weight: bold">标签</h3>
+                <div style="display: block;margin-top: 15px;">
+                    <span class="label label-default tags ">默认标签</span>
+                    <span class="label label-primary tags ">主要标签</span>
+                    <span class="label label-success tags ">成功标签</span>
+                </div>
+                <div style="display: block;margin-top: 15px; ">
+                    <span class="label label-info tags ">信息标签</span>
+                    <span class="label label-warning tags ">警告标签</span>
+                    <span class="label label-danger tags ">危险标签</span>
+                </div>
+
+
+                <div style=" margin-top: 20px;" class="clearfix">
+                    <ul th:each="category:${categories}">
+                        <li class="li label label-primary tags" th:text="${category.name}"></li>
+
+                    </ul>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="widget widget_hot">
+            <h3>最新博客</h3>
+            <ul id="yuan5">
+
+
+            </ul>
+
+        </div>
+        <div class="widget widget_hot">
+            <h3>最高点赞博客</h3>
+            <ul id="hhh">
+
+
+            </ul>
+
+        </div>
+
+    </aside>
+</section>
+<footer class="footer">
+    <div class="container">
+    </div>
+    <div id="gotop"><a class="gotop"></a></div>
+</footer>
+
+<script type="text/javascript">
+    /*zuinewblog*/
+    $(function () {
+        $.ajax({ //用ajax验证随机数字是否正确
+            type: "POST",
+            url: 'http://localhost:8081/getblogOrderAgree',
+            success: function (data) {
+                var temp = null;
+                for (var i = 0; i < data.length; i++) {
+                    var url = '/getDetailed?blogId=' + data[i].id;
+                    var title = data[i].title;
+                    var intro = data[i].intro;
+                    var agree = data[i].agree;
+                    var s = "点赞数："
+                    var str = null;
+                    if (intro.length > 50) {
+                        str = intro.substring(0, 50);
+                    }
+                    temp = $('<li ><a  title="' + s + '' + agree + '" href="' + url + '"><h5 style="font-weight: bold">' + title + '</h5> <span class="thumbnail"><img class="thumb"  src="/images/yuan.jpg" alt=" " style="display: block;"> </span><span class="text">' + str + '</span><span class="muted"></span> </a></li>');
+                    $("#hhh").append(temp);
+                }
+
+
+            }
+
+
+        });
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:8081/zuinewblog',
+            success: function (data) {
+                var title = data.title;
+                var agree = data.agree;
+                var intro = data.intro;
+                var id = data.id;
+                var url = '/getDetailed?blogId=' + id;
+
+                if (intro.length > 50) {
+                    intro = intro.substring(0, 50);
+                }
+
+                var temp = $('<li ><a  title="' + title + '' + agree + '" href="' + url + '"><h5 style="font-weight: bold">' + title + '</h5> <span class="thumbnail"><img class="thumb"  src="/images/yuan.jpg" alt=" " style="display: block;"> </span><span class="text">' + intro + '</span><span class="muted"></span> </a></li>');
+                $("#yuan5").append(temp);
+
+
+            }
+
+
+        });
+
+    });
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

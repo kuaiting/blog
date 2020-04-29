@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+  <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+  <script th:src="@{/admin/js/jquery.js}"></script>
+  <script th:src="@{/admin/js/pintuer.js}"></script>
+  <style type="text/css">
+    .yuan{
+      width: 50%;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+<div class="panel admin-panel" style="position: relative; ">
+  <div class="panel-head"><strong><span class="icon-key"></span> 注册用户信息</strong></div>
+  <div class="body-content" style="position: absolute; left: 400px; top:45px;">
+     <span th:text="${msg}" style="color: red"></span>
+    <form method="post" class="form-x" th:action="@{/user/register}">
+
+      <div class="form-group">
+        <div class="label">
+          <label>用户名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input yuan" name="name" size="50"
+                 placeholder="请输入新用户名"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input  yuan" name="password" size="50"
+                 placeholder="请输入新密码"/>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="label">
+          <label>登录名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="loginName" size="50"
+                 placeholder="请输入新登录名"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>电话：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="tel" size="50"
+                 placeholder="请输入新电话"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>性别：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="gender" size="50"
+                 placeholder=" 请输入性别" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>年龄：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="age" size="50"
+               placeholder=" 请输入年龄" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>生日：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="birth" size="50"
+                  placeholder="生日:yyyy-MM-dd HH:mm:ss"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>家庭地址：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="town" size="50"
+                 placeholder="请输入(省-市-县)"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>邮箱：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="email" size="50"
+                 placeholder="请输入xxxx@XX.com"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label>个人简介：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="intro" size="150"
+                 placeholder="请输入个人简介"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>用户角色：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input  yuan" name="role" size="50"
+                 placeholder="请输入common/vip"/>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

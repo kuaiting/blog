@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 添加用户信息</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" th:action="@{/user/adduser}">
+            <div class="form-group">
+                <div class="label">
+                    <label >当前用户：</label>
+                </div>
+                <div class="field">
+                    <label style="line-height:33px;" th:text="${user.name}">
+
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label >用户名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="name" th:value="${user.name}" size="50"
+                           placeholder="请输入用户名"/>
+                    <input type="hidden" name="id" th:value="${user.id}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label >密码：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="pwd" th:value="${user.pwd} "/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label >性别：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="gender" th:value="${user.gender==1?'男':'女'} "/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label >年龄：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="age" name="age" th:value="${user.age}" size="50"
+                           placeholder="请输入年龄"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label >生日：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="birth" name="birth"
+                           th:value="${#dates.format(user.birth, 'yyyy-MM-dd HH:mm')}" size="50"
+                           placeholder="生日(yyyy-MM-dd)"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label >邮箱：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="email" name="email" th:value="${user.email}" size="50"
+                           placeholder="请输入邮箱"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label >角色：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="role" name="role" th:value="${user.role}" size="50"
+                           placeholder="请输入角色"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/bootstrap.min.css}">
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/js/pintuer.js}"></script>
+    <script th:src="@{/admin/js/myjs.js}"></script>
+    <script th:src="@{/admin/js/myjs2.js}"></script>
+
+</head>
+<body>
+<div id="listform">
+    <form method="post" th:action="@{/blog/deletportionblog}">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 我的博客列表</strong></div>
+            <div class="padding border-bottom">
+                <ul class="search" style="padding-left:10px;">
+                    <li><a class="button border-main icon-plus-square-o" th:href="@{/blog/addblog/(page='addblog')}">
+                        添加博客</a></li>
+                    <li>
+                    <li>
+                        <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+                    </li>
+
+                    <li>
+                        <span th:text="${msg}" style="color: red;"></span>
+                    </li>
+                    <li>
+                        <input type="hidden" th:value="${total}" id="totalsize">
+                        <input type="text" placeholder="请输入搜索关键字" name="keywords" id="keywords" class="input"
+                               style="width:250px; line-height:17px;display:inline-block"/>
+                        <button class="button border-main icon-search" type="button" th:onclick="keywordsearch()"> 搜索
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+            <table class="table table-hover text-center">
+                <tr>
+                    <th>选择</th>
+                    <th width="100" style="text-align:left; padding-left:20px;">ID</th>
+                    <th>名称</th>
+                    <th>关键字</th>
+                    <th>点赞</th>
+                    <th>标签</th>
+                    <th>分类</th>
+                    <th width="10%">更新</th>
+                    <th width="310px">操作</th>
+                </tr>
+
+                <tr th:each="record:${recordlist}">
+                    <td><input type="checkbox" name="checkbox" th:value="${record.id}" id="checkbox"></td>
+                    <td style="text-align:left; padding-left:20px;" th:text="${record.id}"></td>
+                    <td th:text="${record.title}"></td>
+                    <td th:text="${record.keywords} "></td>
+                    <td th:text="${record.agree}"></td>
+                    <td th:text="${record.tags}"></td>
+                    <td th:if="${record.sourceId} eq '1'">原创</td>
+                    <td th:if="${record.sourceId} eq '2'">转载</td>
+                    <td th:if="${record.sourceId} eq '3'">翻译</td>
+
+                    <td th:text="${#dates.format(record.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td>
+                        <div class="button-group"><a class="button border-main"
+                                                     th:href="@{/blog/updatepage/(title=${record.title},blogId=${record.id},blogpath=${record.path},level=${record.level})}"><span
+                                class="icon-edit"></span> 修改</a>
+                            <a class="button border-main"
+                               th:href="@{/tuijian/(blogId=${record.id})}" ><span
+                                    class="btn-warning border-green-light"></span> 推荐</a>
+                            <a class="button border-main"
+                               th:href="@{/notuijian/(blogId=${record.id})}" ><span
+                                    class="btn-warning"></span> 不推荐</a>
+                            <a class="button border-red"
+                               th:href="@{/blog/deletblog/(blogId=${record.id})}"><span
+                                class="icon-trash-o"></span> 删除</a></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="8">
+
+
+                        <ul class="pagination">
+                            <li><a th:href="@{/blog/myblogs/(current=1,size=5)}">首页</a></li>
+                            <li><a th:href="@{/blog/myblogs/(current=${pre},size=5)}" th:if="${current} ne 1">上一页</a>
+                            </li>
+
+                            <li th:each="pageNum:${allpages}">
+                                <a th:href="@{/blog/myblogs/(current=${pageNum},size=5)} " th:text="${pageNum}"
+                                   th:if="${pageNum} lt ${pages}"></a>
+
+                            </li>
+                            <li><a th:href="@{/blog/myblogs/(current=${next},size=5)}" th:if="${current} ne ${pages}">下一页</a>
+                            </li>
+                            <li><a th:href="@{/blog/myblogs/(current=${pages},size=5)}">尾页</a></li>
+                            <li><a>共有[[${pages}]]页</a></li>
+                            <li><a>共有[[${total}]]记录</a></li>
+
+                        </ul>
+
+
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    //搜索
+    function keywordsearch() {
+        var keyword = $("#keywords").val();
+        var size = $("#totalsize").val();
+        window.location.href = "/blog/searchblog?keywords=" + keyword + "&size=" + size;
+
+    }
+
+
+</script>
+</body>
+</html>

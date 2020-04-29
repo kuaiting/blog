@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客详情</title>
+    <link rel="stylesheet" th:href="@{/editormd/css/editormd.css}"/>
+    <link rel="stylesheet" th:href="@{/editormd/css/editormd.preview.css}" />
+    <link rel="stylesheet" href="/css/t1.css">
+    <script src="/js/t1.js"></script>
+    <script src="/js/t2.js"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/editormd/jquery.min.js}"></script>
+    <script th:src="@{/editormd/myjquery.min.js}"></script>
+    <script th:src="@{/editormd/editormd.min.js}"></script>
+    <script th:src="@{/editormd/editormd.js}"></script>
+    <script th:src="@{/editormd/lib/marked.min.js}"></script>
+    <script th:src="@{/editormd/lib/prettify.min.js}"></script>
+
+</head>
+<body>
+<div style="position: relative; width: 70%; height: auto; margin: 30px auto"><a th:href="@{/index}" target="_self" style="color: red; position: absolute; right: 20px; top:10px; text-decoration: none">返回首页</a></div>
+<br>
+<br>
+<div id="test-markdown-view" style="width: 70%; height: auto; margin: 0px auto">
+    <textarea style="display:none;" th:text="${blogDetailed.content}" >
+    </textarea>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        var testView = editormd.markdownToHTML("test-markdown-view", {
+             htmlDecode : true,
+             htmlDecode : "style,script,iframe",
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>上传照片</title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/j/pintsuer.js}"></script>
+</head>
+<body>
+
+<div style=" margin-left: 300px">
+    <span th:text="${msg}" style="color: red; font-weight: bold; font-size: 20px;margin-left: 100px"></span>
+    <form th:action="@{/uploaduserimg}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" class="input w50" name="uploadFile"/>
+            <button class="button bg-main icon-check-square-o" style="margin-top: 3px" type="submit"> 提交</button>
+        </div>
+
+    </form>
+    <img th:height="auto" th:width="400px" th:src="@{/admin/img/}+${fileName}">
+</div>
+</body>
+</html>

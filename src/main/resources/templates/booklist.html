@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/js/pintuer.js}"></script>
+</head>
+<body>
+<form method="post"  th:action="@{/deletportionblog}">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"> 留言管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <button type="submit" class="button border-red" ><span class="icon-trash-o"></span> 批量删除</button>
+                </li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center" >
+            <tr>
+                <th>选择</th>
+                <th>留言人</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>博客ID</th>
+                <th width="25%">留言</th>
+                <th width="120">留言时间</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="record:${records}">
+                <td><input type="checkbox" style="width: 15px; height: 15px;" name="checkbox" th:value="${record.id}"  id="checkbox">
+                </td>
+                <td th:text="${user.loginName}"></td>
+                <td th:text="${user.tel}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${record.blogId}"></td>
+                <td th:text="${record.book}"></td>
+                <td th:text="${#dates.format(record.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <div class="button-group"><a class="button border-red" th:href="@{/deletbook(id=${record.id})}"><span
+                            class="icon-trash-o"></span> 删除</a></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="8">
+                    <ul class="pagination">
+                        <li><a th:href="@{/tobooklist/(current=1,size=5)}">首页</a></li>
+                        <li><a th:href="@{/tobooklist/(current=${pre},size=5)}" th:if="${current} ne 1">上一页</a></li>
+
+                        <li th:each="pageNum:${pagenum}">
+                            <a th:href="@{/tobooklist/(current=${pageNum},size=5)} " th:text="${pageNum}" th:if="${pageNum} lt ${pages}"></a>
+
+                        </li>
+                        <li><a th:href="@{/tobooklist/(current=${next},size=5)}" th:if="${current} ne ${pages}">下一页</a></li>
+                        <li><a th:href="@{/tobooklist/(current=${pages},size=5)}" >尾页</a></li>
+                        <li><a>共有[[${pages}]]页</a></li>
+                        <li><a>共有[[${total}]]记录</a></li>
+
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>评论</title>
+    <link rel="stylesheet" href="/css/t1.css">
+    <script src="/js/t1.js"></script>
+    <script src="/js/t2.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div style="width: 50%; margin: 20px auto">
+        <ul class="list-unstyled" th:each="comment:${commentlist}">
+
+            <li class="media">
+                <img th:src="@{/images/icon.png}" height="65px" width="65px" class="mr-3" alt="...">
+                <div class="media-body border border-primary">
+                    <span th:text="${comment.msg}"></span>
+                </div>
+            </li>
+
+        </ul>
+        <div>
+            <button id="button" style="position: relative; left:35%; top: 10px; " onclick="hiddenbutton()"
+                    class="btn btn-primary bg-green-light" data-toggle="modal" data-target="#myModal">
+                评论博客
+            </button>
+            <a class="btn btn-primary bg-green-light" style="position: relative; left:10%; top: 10px; "  th:href="@{/}" target="_self">返回首页</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function hiddenbutton() {
+        window.document.getElementById("button").style.display = 'none';
+    }
+
+    function popoutbutton() {
+        window.document.getElementById("button").style.display = 'block';
+    }
+</script>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="popoutbutton()" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">评论信息：</h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/addConment}" method="post">
+                    <textarea rows="8" cols="80" name="msg"></textarea>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="popoutbutton()" data-dismiss="modal">
+                            关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

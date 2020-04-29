@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/js/pintuer.js}"></script>
+    <style type="text/css">
+        .yuan{
+            font-size: 16px;
+
+        }
+    </style>
+</head>
+<body style="text-align: left">
+
+
+<div>
+    <h3 >用户头像：</h3>
+    <img th:src="@{/admin/img/}+${user.img}" width="150" height="200">
+
+</div>
+<table  border="0" style="text-align: left">
+
+
+    <tr>
+        <td class="yuan">用户登录名：</td>
+        <td  class="yuan" th:text="${user.loginName}"></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户密码：</td>
+        <td class="yuan" th:text="${user.password}"></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">真实姓名：</td>
+        <td class="yuan" th:text="${user.name}"></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户性别：</td>
+        <td class="yuan" th:if="${user.gender} ne '1' "><span>女</span></td>
+        <td class="yuan" th:if="${user.gender} eq '1' "><span>男</span></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户年龄：</td>
+        <td  class="yuan"><span class="yuan" th:text="${user.age}"></span></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户生日：</td>
+        <td  class="yuan"><span class="yuan" th:text="${#dates.format(user.birth, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户电话：</td>
+        <td  class="yuan" th:text="${user.tel}"></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户邮箱：</td>
+        <td class="yuan" th:text="${user.email}"></td>
+
+    </tr>
+
+    <tr>
+        <td class="yuan">用户角色：</td>
+        <td class="yuan" th:text="${user.role}"> </td>
+
+    </tr>
+    <tr>
+        <td class="yuan">用户简介：</td>
+        <td  class="yuan" th:text="${user.intro}"></td>
+
+    </tr>
+    <tr>
+        <td class="yuan">家庭地址：</td>
+        <td  class="yuan" th:text="${address}"></td>
+
+    </tr>
+
+</table>
+<div class="button-group" style="margin-top: 45px;"><a class="button border-main" th:href="@{/user/update/(id=${user.id})}" target="right"><span
+        class="icon-edit"></span>
+    修改</a>
+</div>
+</body>
+</html>
+

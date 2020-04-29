@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/admin/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/admin.css}">
+    <script th:src="@{/admin/js/jquery.js}"></script>
+    <script th:src="@{/admin/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+    <div class="line bouncein">
+        <div class="xs6 xm4 xs3-move xm4-move">
+            <div style="height:150px;"></div>
+            <div class="media media-y margin-big-bottom">           
+            </div>         
+            <form th:action="@{/user/login}" method="post">
+            <div class="panel loginbox" style="position: relative">
+                <div class="text-center margin-big padding-big-top"><h1>后台管理中心</h1></div>
+                <span style="position: absolute;right:30px;top: 45px; text-decoration: none"><a th:href="@{/user/pages(page=register)}" style="color: red">立即注册</a> </span>
+                <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
+                    <div class="form-group">
+                        <div class="field field-icon-right">
+                            <input type="text" class="input input-big" name="name" value="kuaiting" placeholder="登录账号" data-validate="required:请填写账号" />
+                            <span class="icon icon-user margin-small"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="field field-icon-right">
+                            <input type="password" class="input input-big" name="password" value="1234" placeholder="登录密码" data-validate="required:请填写密码" />
+                            <span class="icon icon-key margin-small"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="field">
+                            <input type="text" class="input input-big" name="code" id="codeInput" placeholder="填写右侧的验证码"  onblur="checkCode()" />
+                           <img th:src="@{/getCode}" id="veryCodeImg" alt="" width="100" height="32" class="passcode" style="height:43px;cursor:pointer;" onclick="hitloadCode()">
+                                                   
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录"></div>
+                <span th:text="${msg}" id="info" style="color: red"></span>
+            </div>
+
+            </form>          
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function hitloadCode() {//点击换一张验证码
+        url = "getCode";
+            var imgSrc = $("#veryCodeImg");
+            var url = imgSrc.attr("src");
+            imgSrc.attr("src", function () { //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
+                var timestamp = (new Date()).valueOf();
+                url = url + "?timestamp=" + timestamp;
+                return url;
+            });
+            $("#info").html("");
+        }
+
+
+
+    function checkCode() {       //验证码验证
+        var code0 = $("#codeInput").val();
+        $.ajax({ //用ajax验证随机数字是否正确
+            type: "POST",
+            url: 'http://localhost:8088/checkCode',
+            data: {code0 : code0},
+            success: function (data) {  //验证以后处理提交信息或错误信息
+                if (data.toString() == "yes") {
+                    $("#info").html("验证码正确");
+                } else {
+                    $("#info").html("验证码不正确");
+                }
+            }
+
+        });
+    }
+
+</script>
+</body>
+</html>
